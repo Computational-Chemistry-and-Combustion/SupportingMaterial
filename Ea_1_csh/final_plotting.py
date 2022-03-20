@@ -141,7 +141,6 @@ def run_code(file_tag,dir_name,analysis_type='Full'):
     plt.rc('text',usetex=True)
     # plt.figure(figsize=(20,10)) 
     plt.title("Ignition delay plot of alkanes $C_3H_{8}$ to $n-C_{16}H_{34}$ \n [P=$"+str(file_tag)+"$atm , $\chi_{Fuel}=1\%, \chi_{Ar}=$Remaining, \n $ \hspace{1cm} \chi_{O_{2}}=$According to stoichiometric ]",fontsize = fontsize_)
-
     plt.xlabel('1000/T [K]',fontsize = fontsize_)
     plt.ylabel('Ignition delay (s)',fontsize = fontsize_)  
     plt.xlim(0.4,2.0)
@@ -154,7 +153,6 @@ def run_code(file_tag,dir_name,analysis_type='Full'):
     plt.savefig('./plots/combined_'+str(analysis_type)+'_'+str(file_tag)+'.eps', figsize=(18,13),dpi=600,orientation ='landscape')
     plt.close('all')
     # plt.show()
-
     # plt.title(r"Ignition delay plot of alkanes $C_3H_{8}-C_{16}H_{34}$ \\ $[P="
     #     +str(file_tag)+
     #     r"$atm , $X_{Fuel}=1\%, X_{Ar}=$Remaining, \\ "

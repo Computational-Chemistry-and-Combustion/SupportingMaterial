@@ -10,6 +10,9 @@ import numpy as np
 def generatePlot():
     data = pd.read_csv('coeff.csv')
 
+    #removing propane data
+    data = data[data['Fuel(C)'] != 3]
+    print(data)
     ############################################################
     '''
     To do regression against C_SH and Ea/R
