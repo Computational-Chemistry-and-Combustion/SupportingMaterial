@@ -1,0 +1,38 @@
+Chnage the file directory and pressure tag as per requirement 
+and then run the code by
+python final_plotting.py
+
+Input:
+
+file_tag:
+define pressure at which all files are generated
+
+dir_name:
+define directory that contains .csv file of all fuels
+
+analysis_type:
+in chnage the analysis_type by  'Full' or 'Half'.
+where 
+'Full' - analyze all the data 
+'Half' - analyze only data of higher temprature
+ 
+
+output:
+It will give plot inside ./plots 
+and in current directory it will genetae Ea_by_R_'tag passed'.csv file
+
+This file will be useful to show relationship between Ea_by_R vs no_of_SH_carbon
+
+############################################################
+
+
+After obtaining all the result,
+-> Now copy all the Ea_by_R values from all the Ea_by_R_'tag passed'.csv files to coeff.csv file my matching bond length to CXX values.
+
+It will process all the columns from 2 to end and do regression over it.
+
+-> edit input in comparision_plot.py and run
+python comparision_plot.py
+
+output:
+plot of regression in ./plots directory 
