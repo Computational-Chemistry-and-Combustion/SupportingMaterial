@@ -4,7 +4,8 @@ from final_plotting import *
 from generatePlot import *
 
 pressure_conditions = [5,10]
-analysis_type = ["Full","Half"]
+# analysis_type = ["Full","Half"]
+analysis_type = ["Full"]
 #################################################################
 ######################    INPUT     #############################
 #################################################################
