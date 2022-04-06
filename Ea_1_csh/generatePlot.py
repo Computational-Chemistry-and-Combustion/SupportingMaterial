@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import pandas as pd
 import numpy as np
+import copy 
 
 ###########################################
 ##############   Input   ##################
@@ -25,6 +26,8 @@ def generatePlot():
     #Experimental x and y data points    
     xData = 1/data['Bonds']  #inverted just for finding the fit 
     # xData = data['Bonds']  #inverted just for finding the fit 
+    error_com_data = copy.deepcopy(data)
+    error_com_data['1byC_SH'] = xData
 
     for  i in range(2,data.shape[1]): #second column to last column 
         yData = data.iloc[:,i]
@@ -42,6 +45,12 @@ def generatePlot():
         #x values for the fitted function
         xFit_inv = np.arange(2,30, 0.01)
 
+        error_com_data[data.columns[i]+'_pred'] = results.predict(X)
+        error_com_data[data.columns[i]+'_relErr'] = (np.abs(error_com_data[data.columns[i]+'_pred'] - error_com_data[data.columns[i]])/error_com_data[data.columns[i]])*100
+        mean_rel_error = error_com_data[data.columns[i]+'_relErr'].mean()
+        max_rel_error = error_com_data[data.columns[i]+'_relErr'].max()
+        min_rel_error = error_com_data[data.columns[i]+'_relErr'].min()
+
         R2 = results.rsquared
         pressure = str(data.columns[i]).split('_')[1] ##will give pressure value
         fontsize = 19
@@ -54,9 +63,10 @@ def generatePlot():
         plt.xlabel('Number of $C_{SH}$ bonds',fontsize=fontsize)
         plt.ylabel('$E_a/R$',fontsize=fontsize)
         plt.legend(loc='best',fontsize=fontsize)
-        text = r'Pressure : '+str(pressure) + ' atm \n $R^2$ : '+str(format(R2, '.4f')) + '\n'r' $\beta_0$ : '+str(format(beta0, '.4f')) + '\n'r'$\beta_1$ : '+str(format(beta1, '.4f'))
+        text = r'Pressure : '+str(pressure) + ' atm \n $R^2$ : '+str(format(R2, '.4f')) + '\n'r' $\beta_0$ : '+str(format(beta0, '.4f')) + '\n'r'$\beta_1$ : '+str(format(beta1, '.4f')) \
+            + '\n'r'Mean RE : '+str(format(mean_rel_error, '.2f') +'$\%$') + '\n'r'Max RE : '+str(format(max_rel_error, '.2f')+'$\%$') + '\n'r'Min RE : '+str(format(min_rel_error, '.2f')+'$\%$')
         # position text absolutely at specific pixel on image
-        plt.text(350, 170, text,ha='center', va='center',transform=None,fontsize=fontsize)
+        plt.text(350, 150, text,ha='center', va='center',transform=None,fontsize=fontsize)
         plt.xticks(np.arange(min(xFit_inv), max(xFit_inv)+1, 2),fontsize=fontsize)
         plt.yticks(fontsize=fontsize, rotation=0)
         plt.tight_layout() 
